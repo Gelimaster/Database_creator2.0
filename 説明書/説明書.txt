@@ -1,0 +1,2 @@
+・１　database_creator2.0をphpdocsに入れる
+・２  mysqlを起動してブラウザでlogin.phpを開いてください
