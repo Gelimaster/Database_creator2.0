@@ -17,6 +17,8 @@ function login(user,pass){
             $.post("DTBS/DTBS.php", { username: user.value,password:pass.value},
             function(data) {
               $('#main').html(data);
+              load_log.style.display="none";
+              load_log.innerHTML="";
             });
           }else{
             //failed to login
@@ -109,11 +111,35 @@ function addfield(){
   position++;
 }
 
-//show tables page functions//
+//show database page functions//
 function setdatabase(databasename,user,pass){
   $.post("DTBS/DTB.php", {Dname:databasename, username: user,password:pass},
   function(data) {
     $('#main').html(data);
+  });
+}
+
+//delete database
+function deleteDB(databasename,user,pass) {
+  $.ajax({
+      url: 'config/deletedb.php',
+      type: 'post',
+      data: {Dname:databasename ,username:user,password:pass},
+      success: function(response){
+      //delete DB Request
+      if (response == "true") {
+        //reload DB page
+        $.post("DTBS/DTBS.php", { username: user,password:pass},
+        function(data) {
+          $('#main').html(data);
+        });
+      }else{
+        //failed to delete DB
+        err_login.style.display="block";
+        err_login.innerHTML="データベース削除を失敗しました。";
+        err_login.style.color="red";
+      }
+    }
   });
 }
 
@@ -122,6 +148,30 @@ function settable(tablename,databasename,user,pass){
   $.post("DTBS/Tshow.php", {Tname:tablename,Dname:databasename, username: user,password:pass},
   function(data) {
     $('#main').html(data);
+  });
+}
+
+//delete table
+function deleteTB(tablename,databasename,user,pass) {
+  $.ajax({
+      url: 'config/deletetb.php',
+      type: 'post',
+      data: {Dname:databasename ,Tname:tablename,username:user,password:pass},
+      success: function(response){
+      //delete table Request
+      if (response == "true") {
+        //reload table page
+        $.post("DTBS/DTB.php", {Dname:databasename ,username:user,password:pass},
+        function(data) {
+          $('#main').html(data);
+        });
+      }else{
+        //failed to delete table
+        err_login.style.display="block";
+        err_login.innerHTML="テーブル削除を失敗しました。";
+        err_login.style.color="red";
+      }
+    }
   });
 }
 
@@ -156,8 +206,6 @@ function edit(tablename,databasename,user,pass,linename,lineid){
     $('#main').html(data);
   });
 }
-
-
 
 //delete table line
 function del(tablename,databasename,user,pass,line,linename){

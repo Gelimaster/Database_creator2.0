@@ -28,7 +28,8 @@ while ($row = mysqli_fetch_assoc($res)) {
   if ($row['Database']=="information_schema") {
     continue;
   }else{
-     ?><input type="button"  onclick="setdatabase('<?php echo $row['Database']?>','<?php echo $user?>','<?php echo $pass?>')"  value="<?php echo $row['Database']?>"><br>
+     ?><input type="button"  onclick="setdatabase('<?php echo $row['Database']?>','<?php echo $user?>','<?php echo $pass?>')"  value="<?php echo $row['Database']?>">
+     <button type="button" onclick="deleteDB('<?php echo $row['Database']?>','<?php echo $user?>','<?php echo $pass?>')">X</button><br>
 <?php
   }
 }

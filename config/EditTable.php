@@ -79,9 +79,9 @@ if(isset($_POST["Tname"])){
     let linevalues= $("."+values).map(function(){
       return $(this).val();
     }).get();
-      linevalues=linevalues.join(",");
-      linenames=linenames.join(",");
-      linetype=linetype.join(",");
+      linevalues=linevalues.join("|");
+      linenames=linenames.join("|");
+      linetype=linetype.join("|");
     $.ajax({
           url: 'config/update.php',
           type: 'post',

@@ -21,9 +21,9 @@ if(isset($_POST["Tname"])){
   //connect to DB
   $db_flg = mysqli_select_db($db_link,$Dname);
   //get collumns name and values
-  $linenames=explode(",",$linenames);
-  $linevalues=explode(",",$linevalues);
-  $linetype=explode(",",$linetype);
+  $linenames=explode("|",$linenames);
+  $linevalues=explode("|",$linevalues);
+  $linetype=explode("|",$linetype);
   $set="";
   for ($i=0; $i <count($linenames); $i++) {
     //last line dont need ,

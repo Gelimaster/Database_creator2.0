@@ -24,12 +24,14 @@ $db_flg = mysqli_select_db($db_link,$Dname);
 $res = mysqli_query($db_link,"SHOW TABLES");
 //table names
 while ($row = mysqli_fetch_assoc($res)) {
-     ?><input type="button" onclick="settable('<?php echo $row["Tables_in_$Dname"]?>','<?php echo $Dname?>','<?php echo $user?>','<?php echo $pass?>')" name="Tname" value="<?php echo $row["Tables_in_$Dname"]?>"><br>
+     ?><input type="button" onclick="settable('<?php echo $row["Tables_in_$Dname"]?>','<?php echo $Dname?>','<?php echo $user?>','<?php echo $pass?>')" name="Tname" value="<?php echo $row["Tables_in_$Dname"]?>">
+     <button type="button" onclick="deleteTB('<?php echo $row["Tables_in_$Dname"]?>','<?php echo $Dname?>','<?php echo $user?>','<?php echo $pass?>')">X</button><br>
 <?php
   }
 mysqli_close($db_link);
   ?>
 </form>
   <br>
+
   <input type="button" onclick="backlist('<?php echo $user?>','<?php echo $pass?>')" value="データベース一覧に戻る">
   <script src="js/index.js"></script>
