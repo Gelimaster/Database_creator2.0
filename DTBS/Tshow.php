@@ -1,29 +1,28 @@
 <?php
-//POSTデータ
+//POST data
 if(isset($_POST["Tname"])){
   $user=$_POST["username"];
   $pass=$_POST["password"];
   $Dname = $_POST["Dname"];
   $Tname = $_POST["Tname"];
 }
-//MySqlサーバ接続
+//MySql connection
 $db_link = mysqli_connect
 ("localhost",$user,$pass);
 
 
-//charset指定
+//charset
 mysqli_set_charset($db_link,"utf8");
 
-//データベース接続
+//connect to DB
 $db_flg = mysqli_select_db($db_link,$Dname);
-//テーブルのライン削除
 ?>
 <h1>テーブル画面</h1>
-<!-- 見えやすくするためにテーブルを作る -->
+<!-- table start-->
   <table border="1">
-    <tr><!--テーブル名の行はここから -->
+    <tr>
       <?php
-      //SQL文の作成　テーブル名
+      //table  
       $strSQL  = "desc ".$Tname;
       //SQL文を実行する。
       $db_result = mysqli_query($db_link,$strSQL);

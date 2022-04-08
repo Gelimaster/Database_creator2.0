@@ -1,0 +1,17 @@
+#load{
+  display: none;
+  width: 300px;
+  height: 100px;
+  padding: 7px;
+  background-color: white;box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
+  float: left;
+  position: absolute;
+  top: 107px;
+  left: 600px;
+  text-align: center;
+}
+body{
+  width: 700px;
+  margin: 0 auto;
+}

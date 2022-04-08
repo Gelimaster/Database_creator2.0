@@ -50,7 +50,6 @@ $SQL= mysqli_query($db_link,$CreateTable);
 
 mysqli_close($db_link);
 
-echo "<p>データベースとテーブル作成されました。</p>";
 
 include("../DTBS/DTBS.php");
 ?>

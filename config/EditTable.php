@@ -71,6 +71,8 @@ if(isset($_POST["Tname"])){
   <script type="text/javascript">
   //comfirm Edit
   function updateline(tablename,databasename,user,pass,values,linename,lineid) {
+    open_windows();
+    load_log.innerHTML="更新中。。。";
     //get line names
     let linenames =  <?php echo json_encode($fields); ?>;
     //get line type
@@ -91,6 +93,7 @@ if(isset($_POST["Tname"])){
               $.post("DTBS/Tshow.php", {Tname:tablename,Dname:databasename, username: user,password:pass},
               function(data) {
                 $('#main').html(data);
+                setTimeout(function() { close_windows(); }, 1000);
               });
             }else{
               //failed to login
