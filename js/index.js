@@ -144,35 +144,51 @@ function setdatabase(databasename,user,pass){
     close_windows();
   });
 }
-
 //delete database
+let checkdata="";
 function deleteDB(databasename,user,pass) {
-  open_windows();
-  load_log.style.color="red";
-  load_log.innerHTML="削除中。。。";
-  $.ajax({
-      url: 'config/deletedb.php',
-      type: 'post',
-      data: {Dname:databasename ,username:user,password:pass},
-      success: function(response){
-      //delete DB Request
-      if (response == "true") {
-        //reload DB page
-        $.post("DTBS/DTBS.php", { username: user,password:pass},
-        function(data) {
-          $('#main').html(data);
-          load_log.innerHTML="削除完了。。。";
-          setTimeout(function() { close_windows(); }, 1000);
-        });
-      }else{
-        //failed to delete DB
-        err_login.style.display="block";
-        err_login.innerHTML="データベース削除を失敗しました。";
-        err_login.style.color="red";
-        setTimeout(function() { close_windows(); }, 1000);
-      }
-    }
-  });
+   open_windows();
+   let button1 = document.createElement("button");
+   let button2 = document.createElement("button");
+   load_log.innerHTML="本当に削除しますか？";
+   button1.innerHTML="はい";
+   button1.onclick = function (){
+     button1.parentNode.removeChild(button1);
+     button2.parentNode.removeChild(button2);
+     load_log.style.color="red";
+     load_log.innerHTML="削除中。。。";
+     $.ajax({
+       url: 'config/deletedb.php',
+       type: 'post',
+       data: {Dname:databasename ,username:user,password:pass},
+       success: function(response){
+         //delete DB Request
+         if (response == "true") {
+           //reload DB page
+           $.post("DTBS/DTBS.php", { username: user,password:pass},
+           function(data) {
+             $('#main').html(data);
+             load_log.innerHTML="削除完了。。。";
+             setTimeout(function() { close_windows(); }, 1000);
+           });
+         }else{
+           //failed to delete DB
+           err_login.style.display="block";
+           err_login.innerHTML="データベース削除を失敗しました。";
+           err_login.style.color="red";
+           setTimeout(function() { close_windows(); }, 1000);
+         }
+       }
+     });
+   };
+   button2.innerHTML="いいえ";
+   button2.onclick =function(){
+     close_windows();
+     button1.parentNode.removeChild(button1);
+     button2.parentNode.removeChild(button2);
+   };
+   load.appendChild(button1);
+   load.appendChild(button2);
 }
 
 //show data inside tables
@@ -189,31 +205,47 @@ function settable(tablename,databasename,user,pass){
 //delete table
 function deleteTB(tablename,databasename,user,pass) {
   open_windows();
-  load_log.style.color="red";
-  load_log.innerHTML="削除中。。。";
-  $.ajax({
+  let button1 = document.createElement("button");
+  let button2 = document.createElement("button");
+  load_log.innerHTML="本当に削除しますか？";
+  button1.innerHTML="はい";
+  button1.onclick = function(){
+    button1.parentNode.removeChild(button1);
+    button2.parentNode.removeChild(button2);
+    load_log.style.color="red";
+    load_log.innerHTML="削除中。。。";
+    $.ajax({
       url: 'config/deletetb.php',
       type: 'post',
       data: {Dname:databasename ,Tname:tablename,username:user,password:pass},
       success: function(response){
-      //delete table Request
-      if (response == "true") {
-        //reload table page
-        $.post("DTBS/DTB.php", {Dname:databasename ,username:user,password:pass},
-        function(data) {
-          $('#main').html(data);
-          load_log.innerHTML="削除完了。。。";
+        //delete table Request
+        if (response == "true") {
+          //reload table page
+          $.post("DTBS/DTB.php", {Dname:databasename ,username:user,password:pass},
+          function(data) {
+            $('#main').html(data);
+            load_log.innerHTML="削除完了。。。";
+            setTimeout(function() { close_windows(); }, 1000);
+          });
+        }else{
+          //failed to delete table　
+          err_login.style.display="block";
+          err_login.innerHTML="テーブルの削除を失敗しました。";
+          err_login.style.color="red";
           setTimeout(function() { close_windows(); }, 1000);
-        });
-      }else{
-        //failed to delete table　
-        err_login.style.display="block";
-        err_login.innerHTML="テーブルの削除を失敗しました。";
-        err_login.style.color="red";
-        setTimeout(function() { close_windows(); }, 1000);
+        }
       }
-    }
-  });
+    });
+  };
+  button2.innerHTML="いいえ";
+  button2.onclick =function(){
+    close_windows();
+    button1.parentNode.removeChild(button1);
+    button2.parentNode.removeChild(button2);
+  };
+  load.appendChild(button1);
+  load.appendChild(button2);
 }
 
 //back to databases list
